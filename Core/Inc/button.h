@@ -27,5 +27,6 @@ typedef struct
 } TButton;
 //public functions
 void ButtonInitKey(TButton* Key, GPIO_TypeDef* GpioPort, uint16_t GpioPin, uint32_t TimerDebounce);
+void ButtonTask(TButton* Key);
 
 #endif /* INC_BUTTON_H_ */

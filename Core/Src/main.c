@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "button.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,9 +44,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t TimerLED2;
-uint32_t TimerLED3;
-uint32_t TimerLED4;
+TButton BlueKey;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -91,30 +89,16 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  TimerLED2 = HAL_GetTick();
+ButtonInitKey(&BlueKey,B1_GPIO_Port, B1_Pin, 20);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if((HAL_GetTick() - TimerLED2) > 500)
-	  	  {
-	  		  TimerLED2 = HAL_GetTick();
-	  		  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-	  	  }
-	  	  if((HAL_GetTick() - TimerLED3) > 300)
-	  	  	  {
-	  	  		  TimerLED3 = HAL_GetTick();
-	  	  		  HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	  	  	  }
-	  	  if((HAL_GetTick() - TimerLED4) > 800)
-	  	  	  {
-	  	  		  TimerLED4 = HAL_GetTick();
-	  	  		  HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
-	  	  	  }
-    /* USER CODE END WHILE */
 
+    /* USER CODE END WHILE */
+	  ButtonTask(&BlueKey);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

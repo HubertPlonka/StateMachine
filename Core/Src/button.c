@@ -20,6 +20,42 @@ void ButtonInitKey(TButton* Key, GPIO_TypeDef* GpioPort, uint16_t GpioPin, uint3
 //time setting func
 //register callbacks
 //states routine
-//state machine
+void ButtonIdleRoutine(TButton* Key)
+{
+	if(GPIO_PIN_RESET == HAL_GPIO_ReadPin(Key->GpioPort, Key->GpioPin))
+	{
+		Key->State = DEBOUNCE;
+		Key->LastTick = HAL_GetTick();
+	}
+}
+void ButtonDebounceRoutine(TButton* Key)
+{
+	if(HAL_GetTick() - Key->LastTick > Key->TimerDebounce)
+	{
 
+	}
+}
+void ButtonPressedRoutine(TButton* Key)
+{
+
+}
+//state machine
+void ButtonTask(TButton* Key)
+{
+	switch(Key->State)
+	{
+	case IDLE:
+		//do IDLE
+		ButtonIdleRoutine(Key);
+		break;
+	case DEBOUNCE:
+		//do debounce
+		ButtonDebounceRoutine(Key);
+		break;
+	case PRESSED:
+		//do pressed
+		ButtonPressedRoutine(Key);
+		break;
+	}
+}
 
